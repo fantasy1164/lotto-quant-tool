@@ -3,178 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 多功能彩券模擬預測器</title>
+    <title>AI 電腦型彩券預測儀表板</title>
     <style>
+        :root {
+            --bg-color: #f4f6f9;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-muted: #7f8c8d;
+            --primary-red: #e74c3c;
+            --special-yellow: #f1c40f;
+            --special-green: #2ecc71;
+            --star-blue: #34495e;
+        }
+
         body {
             font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 20px;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        header {
             text-align: center;
-            background-color: #f8f9fa;
-            color: #2c3e50;
-        }
-        h2 { color: #2c3e50; margin-bottom: 30px; }
-        
-        /* 下拉選單樣式 */
-        select {
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 8px;
-            border: 2px solid #3498db;
-            outline: none;
-            cursor: pointer;
-            margin-bottom: 30px;
-            width: 80%;
-            max-width: 300px;
+            margin-bottom: 40px;
         }
 
+        header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.2rem;
+        }
+
+        header p {
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        #loading {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-top: 50px;
+        }
+
+        /* 核心 Grid 網格佈局 */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* 卡片樣式 */
         .card {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            margin-top: 10px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        /* 各類球體樣式 */
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+        }
+
+        .card h3 {
+            margin: 0 0 20px 0;
+            font-size: 1.4rem;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card h3::after {
+            content: "AI 推薦";
+            font-size: 0.75rem;
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+
+        .numbers-display {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            min-height: 60px;
+            margin-bottom: 15px;
+        }
+
+        /* 球體基本樣式 */
         .ball {
             display: inline-block;
-            width: 45px;
-            height: 45px;
-            background: #e74c3c; /* 預設大樂透/今彩539紅球 */
+            width: 42px;
+            height: 42px;
+            background: var(--primary-red);
             color: white;
             border-radius: 50%;
-            line-height: 45px;
-            margin: 8px;
+            line-height: 42px;
+            text-align: center;
             font-weight: bold;
-            font-size: 1.1em;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        
-        /* 威力彩第二區特別球 (綠色) */
-        .ball.super-special {
-            background: #2ecc71;
+            font-size: 1.05rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.08);
         }
 
-        /* 大樂透特別號 (黃色) */
+        /* 大樂透特別號 (黃球) */
         .ball.lotto-special {
-            background: #f1c40f;
+            background: var(--special-yellow);
             color: #2c3e50;
         }
 
-        /* 3/4星彩數字方塊 */
-        .star-box {
-            display: inline-block;
-            width: 45px;
-            height: 45px;
-            background: #34495e;
-            color: white;
-            border-radius: 8px;
-            line-height: 45px;
-            margin: 8px;
-            font-weight: bold;
-            font-size: 1.2em;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        /* 威力彩第二區 (綠球) */
+        .ball.super-special {
+            background: var(--special-green);
         }
 
-        .info {
-            color: #7f8c8d;
-            font-size: 0.9em;
-            margin-top: 30px;
+        /* 3/4星彩 (方塊) */
+        .star-box {
+            display: inline-block;
+            width: 42px;
+            height: 42px;
+            background: var(--star-blue);
+            color: white;
+            border-radius: 8px;
+            line-height: 42px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.15rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+        }
+
+        /* 提示分隔線（用於特別號前） */
+        .plus-sign {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--text-muted);
+            margin: 0 2px;
         }
     </style>
 </head>
 <body>
 
-    <h2>🤖 AI 電腦型彩券預測模擬器</h2>
+    <header>
+        <h1>🤖 AI 電腦型彩券模擬預測儀表板</h1>
+        <p>數據最後更新時間: <span id="update-time">---</span></p>
+    </header>
+
+    <div id="loading">正在載入模型預測數據...</div>
     
-    <select id="lottery-select" onchange="renderPrediction()">
-        <option value="">載入數據中...</option>
-    </select>
-    
-    <div class="card" id="display-card" style="display:none;">
-        <h3 id="lottery-title">---</h3>
-        <div id="numbers-container"></div>
-        <p class="info">最後更新時間: <span id="update-time"></span></p>
-    </div>
+    <div class="grid-container" id="lottery-grid"></div>
 
     <script>
-        let globalData = null;
-
-        // 1. 讀取 GitHub Actions 自動產生的 data.json
+        // 讀取由 GitHub Actions 天天更新的 data.json
         fetch('data.json')
             .then(response => response.json())
             .then(data => {
-                globalData = data;
+                document.getElementById('loading').style.display = 'none';
                 document.getElementById('update-time').innerText = data.last_updated;
                 
-                // 動態初始化下拉選單
-                const select = document.getElementById('lottery-select');
-                select.innerHTML = ''; // 清空 loading
-                
-                Object.keys(data.predictions).forEach(key => {
-                    const opt = document.createElement('option');
-                    opt.value = key;
-                    opt.innerText = data.predictions[key].name;
-                    select.appendChild(opt);
-                });
+                const gridContainer = document.getElementById('lottery-grid');
+                gridContainer.innerHTML = ''; // 清空容器
 
-                // 預設顯示第一個產品
-                document.getElementById('display-card').style.display = 'block';
-                renderPrediction();
+                // 迭代所有彩券產品，直接生成卡片
+                Object.keys(data.predictions).forEach(key => {
+                    const pred = data.predictions[key];
+                    
+                    // 1. 建立卡片外殼
+                    const card = document.createElement('div');
+                    card.className = 'card';
+
+                    // 2. 建立標題
+                    const title = document.createElement('h3');
+                    title.innerText = pred.name;
+                    card.appendChild(title);
+
+                    // 3. 建立號碼容器
+                    const numContainer = document.createElement('div');
+                    numContainer.className = 'numbers-display';
+
+                    // 4. 渲染普通號碼
+                    pred.numbers.forEach(num => {
+                        const el = document.createElement('span');
+                        if (pred.style === 'stars') {
+                            el.className = 'star-box';
+                            el.innerText = num; // 3/4星彩不補零
+                        } else {
+                            el.className = 'ball';
+                            el.innerText = String(num).padStart(2, '0');
+                        }
+                        numContainer.appendChild(el);
+                    });
+
+                    // 5. 處理特別號 / 第二區號碼
+                    if (pred.special !== null) {
+                        // 加入一個 "+" 號視覺分隔
+                        const plus = document.createElement('span');
+                        plus.className = 'plus-sign';
+                        plus.innerText = "+";
+                        numContainer.appendChild(plus);
+
+                        const spEl = document.createElement('span');
+                        if (pred.style === 'super_lotto') {
+                            spEl.className = 'ball super-special';
+                        } else if (pred.style === 'lotto') {
+                            spEl.className = 'ball lotto-special';
+                        }
+                        spEl.innerText = String(pred.special).padStart(2, '0');
+                        numContainer.appendChild(spEl);
+                    }
+
+                    card.appendChild(numContainer);
+                    gridContainer.appendChild(card);
+                });
             })
             .catch(err => {
-                const select = document.getElementById('lottery-select');
-                select.innerHTML = '<option>無法載入最新數據</option>';
+                document.getElementById('loading').innerText = '無法載入最新數據，請檢查 data.json 是否存在。';
                 console.error(err);
             });
-
-        // 2. 渲染對應彩券的預測號碼
-        function renderPrediction() {
-            if (!globalData) return;
-            
-            const selectedKey = document.getElementById('lottery-select').value;
-            const pred = globalData.predictions[selectedKey];
-            
-            document.getElementById('lottery-title').innerText = `${pred.name} 推薦號碼`;
-            
-            const container = document.getElementById('numbers-container');
-            container.innerHTML = ''; // 清空舊球
-
-            // 根據不同彩券類型渲染球體
-            if (pred.style === 'stars') {
-                // 3星彩 / 4星彩：渲染成方塊
-                pred.numbers.forEach(num => {
-                    const el = document.createElement('span');
-                    el.className = 'star-box';
-                    el.innerText = num;
-                    container.appendChild(el);
-                });
-            } else {
-                // 大樂透、威力彩、今彩539：渲染成圓球
-                pred.numbers.forEach(num => {
-                    const el = document.createElement('span');
-                    el.className = 'ball';
-                    el.innerText = String(num).padStart(2, '0'); // 補零美化，如 03, 12
-                    container.appendChild(el);
-                });
-
-                // 處理特別號/第二區
-                if (pred.special !== null) {
-                    const spEl = document.createElement('span');
-                    
-                    if (pred.style === 'super_lotto') {
-                        spEl.className = 'ball super-special'; // 威力彩第二區 (綠)
-                    } else if (pred.style === 'lotto') {
-                        spEl.className = 'ball lotto-special'; // 大樂透特別號 (黃)
-                    }
-                    
-                    spEl.innerText = String(pred.special).padStart(2, '0');
-                    container.appendChild(spEl);
-                }
-            }
-        }
     </script>
 </body>
 </html>
