@@ -1,11 +1,42 @@
 import json
 import time
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 import numpy as np
 import requests
 from sklearn.ensemble import RandomForestClassifier
 
 API_BASE_URL = "https://api.taiwanlottery.com.tw/api/v1/lottery"
+
+
+def calculate_next_draw_date(lottery_style):
+    """
+    計算下期開獎日期 (台北時間 UTC+8)
+    大樂透 (lotto): 二、五
+    威力彩 (super_lotto): 一、四
+    今彩539 (daily_539) & 3/4星彩 (stars): 一、二、三、四、五、六
+    """
+    tz_taipei = timezone(timedelta(hours=8))
+    now = datetime.now(tz_taipei)
+    
+    draw_days = []
+    if lottery_style == "lotto":
+        draw_days = [1, 4]  # 週二(1), 週五(4)
+    elif lottery_style == "super_lotto":
+        draw_days = [0, 3]  # 週一(0), 週四(3)
+    elif lottery_style == "daily_539" or lottery_style == "stars":
+        draw_days = [0, 1, 2, 3, 4, 5]  # 週一至週六 (0~5)
+        
+    # 如果今天是開獎日，且在晚上 20:00 前（截止投注與開獎前），則下期開獎就是今天
+    start_offset = 0 if (now.weekday() in draw_days and now.hour < 20) else 1
+    
+    for i in range(start_offset, start_offset + 8):
+        check_date = now + timedelta(days=i)
+        if check_date.weekday() in draw_days:
+            weekdays_tw = ["一", "二", "三", "四", "五", "六", "日"]
+            formatted_date = check_date.strftime("%Y/%m/%d")
+            weekday_str = weekdays_tw[check_date.weekday()]
+            return f"下期開獎 {formatted_date}({weekday_str})"
+    return ""
 
 
 def fetch_real_history(lottery_type, size=100):
@@ -92,12 +123,9 @@ def ml_predict_with_details(history_numbers, max_number, pick_count):
     lookback = 5
     X, y, matrix = create_features_and_labels(history_numbers, max_number, lookback)
 
-    # 1. 訓練模型
     model = RandomForestClassifier(n_estimators=100, random_state=42)
     model.fit(X, y)
 
-    # 2. 擷取特徵重要性 (Feature Importance)
-    # 特徵順序：前1期, 前2期, 前3期, 前4期, 前5期, 5期累計頻率
     importances = model.feature_importances_
     feature_importance_dict = {
         "t_1": float(importances[0]),
@@ -108,7 +136,6 @@ def ml_predict_with_details(history_numbers, max_number, pick_count):
         "freq": float(importances[5])
     }
 
-    # 3. 預測最新一期
     next_features = []
     for num in range(1, max_number + 1):
         feature = matrix[0:lookback, num]
@@ -173,6 +200,7 @@ def main():
     
     predictions["lotto"] = {
         "name": "大樂透",
+        "next_draw": calculate_next_draw_date("lotto"),
         "numbers": recommended,
         "importance": importance,
         "special": int(best_special),
@@ -193,6 +221,7 @@ def main():
     
     predictions["super_lotto"] = {
         "name": "威力彩",
+        "next_draw": calculate_next_draw_date("super_lotto"),
         "numbers": recommended,
         "importance": importance,
         "special": int(best_special),
@@ -211,6 +240,7 @@ def main():
     
     predictions["daily_539"] = {
         "name": "今彩539",
+        "next_draw": calculate_next_draw_date("daily_539"),
         "numbers": recommended,
         "importance": importance,
         "special": None,
@@ -218,10 +248,11 @@ def main():
     }
     time.sleep(1)
 
-    # ====== 4. 3星彩 & 5. 4星彩 (模擬星彩特徵) ======
+    # ====== 4. 3星彩 & 5. 4星彩 ======
     dummy_importance = {"t_1": 0.15, "t_2": 0.15, "t_3": 0.15, "t_4": 0.15, "t_5": 0.15, "freq": 0.25}
     predictions["star_3"] = {
         "name": "3星彩",
+        "next_draw": calculate_next_draw_date("stars"),
         "numbers": generate_stars_data(3),
         "importance": dummy_importance,
         "special": None,
@@ -229,6 +260,7 @@ def main():
     }
     predictions["star_4"] = {
         "name": "4星彩",
+        "next_draw": calculate_next_draw_date("stars"),
         "numbers": generate_stars_data(4),
         "importance": dummy_importance,
         "special": None,
@@ -243,7 +275,7 @@ def main():
     with open("data.json", "w", encoding="utf-8") as f:
         json.dump(output_data, f, ensure_ascii=False, indent=4)
 
-    print("[+] 數據全面生成完畢，已防禦寫入 data.json。")
+    print("[+] 數據與下期開獎日更新完畢，已寫入 data.json。")
 
 
 if __name__ == "__main__":

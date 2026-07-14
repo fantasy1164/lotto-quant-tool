@@ -137,9 +137,11 @@
             transform: translateY(-6px);
         }
 
+        /* 標題欄 Flex 佈局調整，容納：品名、開獎日、徽章 */
         .card h3 {
             margin: 0 0 20px 0;
-            font-size: 1.5rem;
+            font-size: 1.45rem;
+            font-weight: 700;
             border-bottom: 2px solid #f1f5f9;
             padding-bottom: 12px;
             display: flex;
@@ -147,14 +149,28 @@
             align-items: center;
         }
 
+        /* 下期開獎日期標籤樣式 */
+        .next-draw-date {
+            font-size: 0.76rem;
+            color: #475569;
+            font-weight: 600;
+            margin-left: auto; /* 靠右對齊，貼著 ML徽章 */
+            margin-right: 10px;
+            background: #f1f5f9;
+            padding: 4px 8px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+        }
+
         .card h3::after {
             content: "ML 決策樹";
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             background: #e0f2fe;
             color: #0369a1;
-            padding: 4px 10px;
+            padding: 4px 8px;
             border-radius: 6px;
             font-weight: 600;
+            flex-shrink: 0;
         }
 
         .prediction-row {
@@ -268,7 +284,6 @@
         .special-ball.lotto { background: var(--special-yellow); color: #1e293b; }
         .special-ball.super { background: var(--special-green); }
 
-        /* 特徵重要性分析（特徵權重圖） */
         .importance-panel {
             margin-top: 20px;
             padding-top: 15px;
@@ -383,9 +398,12 @@
                     const card = document.createElement('div');
                     card.className = 'card';
 
-                    // 1. 卡片標題
+                    // 1. 卡片標題 (包含品名與下期開獎日期)
                     const title = document.createElement('h3');
-                    title.innerText = product.name;
+                    title.innerHTML = `
+                        <span>${product.name}</span>
+                        <span class="next-draw-date">${product.next_draw || ''}</span>
+                    `;
                     card.appendChild(title);
 
                     // 2. 演算詳情容器
@@ -446,9 +464,6 @@
                     if (product.importance) {
                         const imp = product.importance;
                         const impPanel = document.createElement('div');
-                        impPanel.className = 'importance-panel';
-                        
-                        const impTitle = document.createElement('span');
                         impPanel.className = 'importance-panel';
                         
                         impPanel.innerHTML = `
