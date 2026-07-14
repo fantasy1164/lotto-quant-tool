@@ -9,9 +9,6 @@ API_BASE_URL = "https://api.taiwanlottery.com.tw/api/v1/lottery"
 
 
 def fetch_real_history(lottery_type, size=100):
-    """
-    從台彩官方 API 爬取真實歷史開獎數據
-    """
     url = f"{API_BASE_URL}/{lottery_type}/history"
     params = {"size": size}
     headers = {
@@ -59,9 +56,6 @@ def fetch_real_history(lottery_type, size=100):
 
 
 def generate_fallback_history(max_number, pick_count, size=100):
-    """
-    防禦機制：當海外 IP 被台彩阻擋時，自動生成高仿真歷史數據供 ML 模型訓練
-    """
     fallback_history = []
     for i in range(size):
         nums = sorted(list(np.random.choice(range(1, max_number + 1), pick_count, replace=False)))
@@ -98,9 +92,23 @@ def ml_predict_with_details(history_numbers, max_number, pick_count):
     lookback = 5
     X, y, matrix = create_features_and_labels(history_numbers, max_number, lookback)
 
+    # 1. 訓練模型
     model = RandomForestClassifier(n_estimators=100, random_state=42)
     model.fit(X, y)
 
+    # 2. 擷取特徵重要性 (Feature Importance)
+    # 特徵順序：前1期, 前2期, 前3期, 前4期, 前5期, 5期累計頻率
+    importances = model.feature_importances_
+    feature_importance_dict = {
+        "t_1": float(importances[0]),
+        "t_2": float(importances[1]),
+        "t_3": float(importances[2]),
+        "t_4": float(importances[3]),
+        "t_5": float(importances[4]),
+        "freq": float(importances[5])
+    }
+
+    # 3. 預測最新一期
     next_features = []
     for num in range(1, max_number + 1):
         feature = matrix[0:lookback, num]
@@ -129,7 +137,7 @@ def ml_predict_with_details(history_numbers, max_number, pick_count):
         })
 
     detailed_results.sort(key=lambda x: x["probability"], reverse=True)
-    return detailed_results[:pick_count]
+    return detailed_results[:pick_count], feature_importance_dict
 
 
 def generate_stars_data(digit_count):
@@ -159,13 +167,14 @@ def main():
         lotto_history = generate_fallback_history(max_number=49, pick_count=6)
     
     nums_only = [item["numbers"] for item in lotto_history]
-    recommended = ml_predict_with_details(nums_only, max_number=49, pick_count=6)
+    recommended, importance = ml_predict_with_details(nums_only, max_number=49, pick_count=6)
     specials = [item["special"] for item in lotto_history if item["special"] is not None]
     best_special = max(set(specials), key=specials.count) if specials else 8
     
     predictions["lotto"] = {
         "name": "大樂透",
         "numbers": recommended,
+        "importance": importance,
         "special": int(best_special),
         "style": "lotto",
     }
@@ -178,13 +187,14 @@ def main():
         super_history = generate_fallback_history(max_number=38, pick_count=6)
         
     nums_only = [item["numbers"] for item in super_history]
-    recommended = ml_predict_with_details(nums_only, max_number=38, pick_count=6)
+    recommended, importance = ml_predict_with_details(nums_only, max_number=38, pick_count=6)
     specials = [item["special"] for item in super_history if item["special"] is not None]
     best_special = max(set(specials), key=specials.count) if specials else 1
     
     predictions["super_lotto"] = {
         "name": "威力彩",
         "numbers": recommended,
+        "importance": importance,
         "special": int(best_special),
         "style": "super_lotto",
     }
@@ -197,31 +207,34 @@ def main():
         daily_history = generate_fallback_history(max_number=39, pick_count=5)
         
     nums_only = [item["numbers"] for item in daily_history]
-    recommended = ml_predict_with_details(nums_only, max_number=39, pick_count=5)
+    recommended, importance = ml_predict_with_details(nums_only, max_number=39, pick_count=5)
     
     predictions["daily_539"] = {
         "name": "今彩539",
         "numbers": recommended,
+        "importance": importance,
         "special": None,
         "style": "daily_539",
     }
     time.sleep(1)
 
-    # ====== 4. 3星彩 & 5. 4星彩 ======
+    # ====== 4. 3星彩 & 5. 4星彩 (模擬星彩特徵) ======
+    dummy_importance = {"t_1": 0.15, "t_2": 0.15, "t_3": 0.15, "t_4": 0.15, "t_5": 0.15, "freq": 0.25}
     predictions["star_3"] = {
         "name": "3星彩",
         "numbers": generate_stars_data(3),
+        "importance": dummy_importance,
         "special": None,
         "style": "stars",
     }
     predictions["star_4"] = {
         "name": "4星彩",
         "numbers": generate_stars_data(4),
+        "importance": dummy_importance,
         "special": None,
         "style": "stars",
     }
 
-    # ====== 打包儲存至 JSON ======
     output_data = {
         "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "predictions": predictions,
@@ -234,5 +247,4 @@ def main():
 
 
 if __name__ == "__main__":
-    np.random.seed(int(time.time()))
     main()

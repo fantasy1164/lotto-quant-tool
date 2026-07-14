@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI 電腦型彩券預測儀表板</title>
+    <title>AI 電腦型彩券預測與機器學習可視化</title>
     <style>
         :root {
-            --bg-color: #f6f8fa;
+            --bg-color: #f8fafc;
             --card-bg: #ffffff;
-            --text-main: #1e293b;
+            --text-main: #0f172a;
             --text-muted: #64748b;
             --primary-red: #ef4444;
-            --special-yellow: #f59e0b;
+            --special-yellow: #eab308;
             --special-green: #10b981;
             --star-blue: #475569;
             --border-color: #e2e8f0;
+            --brand-blue: #2563eb;
         }
 
         body {
@@ -27,14 +28,13 @@
 
         header {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
         header h1 {
             margin: 0 0 12px 0;
             font-size: 2.4rem;
             font-weight: 800;
-            letter-spacing: -0.5px;
         }
 
         header p {
@@ -43,15 +43,79 @@
             font-size: 1.05rem;
         }
 
+        /* ML 科普教育面板 */
+        .edu-panel {
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            border-radius: 20px;
+            padding: 25px;
+            max-width: 1350px;
+            margin: 0 auto 40px auto;
+            border: 1px solid #bfdbfe;
+            display: flex;
+            gap: 25px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .edu-text {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .edu-text h2 {
+            margin-top: 0;
+            color: var(--brand-blue);
+            font-size: 1.5rem;
+        }
+
+        .edu-text p {
+            color: #334155;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .edu-steps {
+            flex: 3;
+            display: flex;
+            gap: 15px;
+            min-width: 300px;
+        }
+
+        .step-card {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            flex: 1;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            border: 1px solid #dbeafe;
+        }
+
+        .step-num {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--brand-blue);
+            margin-bottom: 5px;
+        }
+
+        .step-title {
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .step-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
         #loading {
             text-align: center;
             font-size: 1.2rem;
             color: var(--text-muted);
             margin-top: 60px;
-            font-weight: 500;
         }
 
-        /* 全螢幕響應式網格 */
         .grid-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -60,27 +124,22 @@
             margin: 0 auto;
         }
 
-        /* 數據卡片設計 */
         .card {
             background: var(--card-bg);
             border-radius: 20px;
             padding: 28px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.02);
             border: 1px solid var(--border-color);
-            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s;
-            display: flex;
-            flex-direction: column;
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .card:hover {
             transform: translateY(-6px);
-            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.07);
         }
 
         .card h3 {
             margin: 0 0 20px 0;
             font-size: 1.5rem;
-            font-weight: 700;
             border-bottom: 2px solid #f1f5f9;
             padding-bottom: 12px;
             display: flex;
@@ -89,22 +148,15 @@
         }
 
         .card h3::after {
-            content: "ML 演算中";
+            content: "ML 決策樹";
             font-size: 0.75rem;
-            background: #f0fdf4;
-            color: #166534;
+            background: #e0f2fe;
+            color: #0369a1;
             padding: 4px 10px;
             border-radius: 6px;
             font-weight: 600;
         }
 
-        .details-box {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        /* 演算數據單列排版 */
         .prediction-row {
             display: flex;
             justify-content: space-between;
@@ -120,7 +172,6 @@
             width: 55%;
         }
 
-        /* 球體樣式 */
         .ball {
             display: inline-block;
             width: 38px;
@@ -136,7 +187,6 @@
             flex-shrink: 0;
         }
 
-        /* 3/4星彩數字方塊 */
         .ball.star {
             background: var(--star-blue);
             border-radius: 8px;
@@ -151,7 +201,6 @@
             border-radius: 4px;
         }
 
-        /* 特徵冷熱標籤 */
         .status-badge {
             font-size: 0.72rem;
             padding: 2px 6px;
@@ -161,7 +210,6 @@
         .badge-hot { background: #fee2e2; color: #ef4444; }
         .badge-cold { background: #e0f2fe; color: #0284c7; }
 
-        /* 機率進度條 */
         .prob-meta {
             width: 40%;
             text-align: right;
@@ -171,7 +219,6 @@
             font-size: 0.82rem;
             color: var(--text-muted);
             font-weight: 600;
-            font-family: monospace;
         }
 
         .progress-container {
@@ -190,7 +237,6 @@
             transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* 特別號專用面板 */
         .special-panel {
             margin-top: 18px;
             padding: 12px 16px;
@@ -199,7 +245,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border: 1px dashed var(--border-color);
+            border: 1px solid var(--border-color);
         }
 
         .special-title {
@@ -218,10 +264,68 @@
             text-align: center;
             font-weight: 800;
             font-size: 1.1rem;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         .special-ball.lotto { background: var(--special-yellow); color: #1e293b; }
         .special-ball.super { background: var(--special-green); }
+
+        /* 特徵重要性分析（特徵權重圖） */
+        .importance-panel {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .importance-title {
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            display: block;
+            text-align: left;
+        }
+
+        .importance-bar-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .importance-row {
+            display: flex;
+            align-items: center;
+            font-size: 0.75rem;
+        }
+
+        .importance-label {
+            width: 75px;
+            color: #475569;
+            text-align: left;
+        }
+
+        .importance-track {
+            flex-grow: 1;
+            background: #f1f5f9;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0 8px;
+        }
+
+        .importance-fill {
+            background: #6366f1;
+            height: 100%;
+            border-radius: 4px;
+            width: 0%;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .importance-val {
+            width: 35px;
+            color: #6366f1;
+            font-weight: 700;
+            text-align: right;
+            font-family: monospace;
+        }
     </style>
 </head>
 <body>
@@ -231,12 +335,39 @@
         <p>數據更新排程：每日自動運行 • <span id="update-time">載入中...</span></p>
     </header>
 
+    <div class="edu-panel">
+        <div class="edu-text">
+            <h2>💡 AI 是如何學習開獎規律的？</h2>
+            <p>
+                本系統在後端建立了一個 <strong>Random Forest (隨機森林) 分類模型</strong>。
+                我們並不猜測「絕對幸運數字」，而是將過去 100 期的歷史中獎走勢轉換為<strong>「0 與 1 特徵矩陣」</strong>。
+                模型會反覆研讀在各種「遺漏期數」與「冷熱狀態」下，號碼再次開出的機率規律，並在下方動態展示它決策時最依賴的特徵權重。
+            </p>
+        </div>
+        <div class="edu-steps">
+            <div class="step-card">
+                <div class="step-num">1</div>
+                <div class="step-title">歷史特徵化</div>
+                <div class="step-desc">統計每個號碼在歷史上的遺漏期與前幾期開出軌跡。</div>
+            </div>
+            <div class="step-card">
+                <div class="step-num">2</div>
+                <div class="step-title">森林擬合</div>
+                <div class="step-desc">利用 100 棵決策樹，找出不同遺漏狀態下的回歸規律。</div>
+            </div>
+            <div class="step-card">
+                <div class="step-num">3</div>
+                <div class="step-title">權重歸納</div>
+                <div class="step-desc">分析當前最影響開獎機率的特徵（如下方的特徵圖）。</div>
+            </div>
+        </div>
+    </div>
+
     <div id="loading">正在讀取真實歷史開獎數據與訓練模型結果...</div>
     
     <div class="grid-container" id="lottery-grid"></div>
 
     <script>
-        // 非同步載入 Actions 生成的資料
         fetch('data.json')
             .then(response => response.json())
             .then(data => {
@@ -246,7 +377,6 @@
                 const grid = document.getElementById('lottery-grid');
                 grid.innerHTML = ''; 
 
-                // 遍歷所有商品
                 Object.keys(data.predictions).forEach(key => {
                     const product = data.predictions[key];
                     
@@ -266,7 +396,6 @@
                         const row = document.createElement('div');
                         row.className = 'prediction-row';
 
-                        // 計算冷熱標籤
                         let tagHtml = '';
                         if (item.count_20 >= 4) {
                             tagHtml = '<span class="status-badge badge-hot">🔥熱</span>';
@@ -274,7 +403,6 @@
                             tagHtml = '<span class="status-badge badge-cold">❄️冷</span>';
                         }
 
-                        // 判斷是否為三星/四星彩的方塊樣式
                         const isStar = product.style === 'stars';
                         const ballText = isStar ? item.number : String(item.number).padStart(2, '0');
                         const ballClass = isStar ? 'ball star' : 'ball';
@@ -296,7 +424,7 @@
                     });
                     card.appendChild(detailsBox);
 
-                    // 3. 渲染特別號區塊（如果該彩券有特別號）
+                    // 3. 渲染特別號區塊
                     if (product.special !== null) {
                         const specialPanel = document.createElement('div');
                         specialPanel.className = 'special-panel';
@@ -314,12 +442,48 @@
                         card.appendChild(specialPanel);
                     }
 
+                    // 4. 渲染特徵重要性權重圖
+                    if (product.importance) {
+                        const imp = product.importance;
+                        const impPanel = document.createElement('div');
+                        impPanel.className = 'importance-panel';
+                        
+                        const impTitle = document.createElement('span');
+                        impPanel.className = 'importance-panel';
+                        
+                        impPanel.innerHTML = `
+                            <span class="importance-title">📊 決策依據特徵權重 (Feature Importance)</span>
+                            <div class="importance-bar-group">
+                                <div class="importance-row">
+                                    <span class="importance-label">前 1 期開出</span>
+                                    <div class="importance-track"><div class="importance-fill" data-width="${imp.t_1 * 100}"></div></div>
+                                    <span class="importance-val">${(imp.t_1 * 100).toFixed(1)}%</span>
+                                </div>
+                                <div class="importance-row">
+                                    <span class="importance-label">前 2-5 期狀態</span>
+                                    <div class="importance-track"><div class="importance-fill" data-width="${((imp.t_2+imp.t_3+imp.t_4+imp.t_5)/4 * 100).toFixed(1)}"></div></div>
+                                    <span class="importance-val">${(((imp.t_2+imp.t_3+imp.t_4+imp.t_5)/4) * 100).toFixed(1)}%</span>
+                                </div>
+                                <div class="importance-row">
+                                    <span class="importance-label">近5期開出總次</span>
+                                    <div class="importance-track"><div class="importance-fill" data-width="${imp.freq * 100}"></div></div>
+                                    <span class="importance-val">${(imp.freq * 100).toFixed(1)}%</span>
+                                </div>
+                            </div>
+                        `;
+                        card.appendChild(impPanel);
+                    }
+
                     grid.appendChild(card);
                 });
 
-                // 動態觸發進度條動畫
+                // 動態觸發進度條與特徵圖動畫
                 setTimeout(() => {
                     document.querySelectorAll('.progress-bar').forEach(bar => {
+                        const targetWidth = bar.getAttribute('data-width');
+                        bar.style.width = `${targetWidth}%`;
+                    });
+                    document.querySelectorAll('.importance-fill').forEach(bar => {
                         const targetWidth = bar.getAttribute('data-width');
                         bar.style.width = `${targetWidth}%`;
                     });
