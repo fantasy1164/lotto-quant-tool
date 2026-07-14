@@ -1,126 +1,150 @@
 {
-    "last_updated": "2026-07-14 03:32:20",
+    "last_updated": "2026-07-14 03:45:00",
     "predictions": {
         "lotto": {
             "name": "大樂透",
             "numbers": [
                 {
-                    "number": 13,
-                    "probability": 0.4276203845174434,
-                    "omission": 1,
-                    "count_20": 6
-                },
-                {
-                    "number": 14,
-                    "probability": 0.15974794649794644,
+                    "number": 12,
+                    "probability": 0.14170165911514906,
                     "omission": 0,
-                    "count_20": 5
-                },
-                {
-                    "number": 27,
-                    "probability": 0.15734562247657552,
-                    "omission": 1,
                     "count_20": 3
                 },
                 {
-                    "number": 32,
-                    "probability": 0.15734562247657552,
-                    "omission": 1,
+                    "number": 38,
+                    "probability": 0.14170165911514906,
+                    "omission": 0,
                     "count_20": 4
                 },
                 {
                     "number": 1,
-                    "probability": 0.13656441791431292,
-                    "omission": 5,
+                    "probability": 0.1383824041564493,
+                    "omission": 4,
+                    "count_20": 2
+                },
+                {
+                    "number": 14,
+                    "probability": 0.1383824041564493,
+                    "omission": 4,
+                    "count_20": 2
+                },
+                {
+                    "number": 25,
+                    "probability": 0.1383824041564493,
+                    "omission": 4,
                     "count_20": 3
                 },
                 {
-                    "number": 2,
-                    "probability": 0.13656441791431292,
-                    "omission": 11,
-                    "count_20": 1
+                    "number": 43,
+                    "probability": 0.1383824041564493,
+                    "omission": 4,
+                    "count_20": 2
                 }
             ],
-            "special": 27,
+            "importance": {
+                "t_1": 0.15770660663390815,
+                "t_2": 0.15192384863275124,
+                "t_3": 0.13092189647696512,
+                "t_4": 0.13637669322527443,
+                "t_5": 0.12591224163885417,
+                "freq": 0.2971587133922468
+            },
+            "special": 18,
             "style": "lotto"
         },
         "super_lotto": {
             "name": "威力彩",
             "numbers": [
                 {
-                    "number": 6,
-                    "probability": 0.20101322398435106,
-                    "omission": 1,
-                    "count_20": 5
-                },
-                {
-                    "number": 18,
-                    "probability": 0.20101322398435106,
-                    "omission": 1,
-                    "count_20": 4
-                },
-                {
-                    "number": 27,
-                    "probability": 0.20101322398435106,
-                    "omission": 1,
-                    "count_20": 6
-                },
-                {
-                    "number": 31,
-                    "probability": 0.20101322398435106,
-                    "omission": 1,
-                    "count_20": 5
-                },
-                {
-                    "number": 29,
-                    "probability": 0.18575565432937857,
-                    "omission": 0,
-                    "count_20": 5
-                },
-                {
                     "number": 23,
-                    "probability": 0.1856956636559689,
+                    "probability": 0.9,
                     "omission": 0,
+                    "count_20": 5
+                },
+                {
+                    "number": 3,
+                    "probability": 0.19856128911274418,
+                    "omission": 3,
+                    "count_20": 1
+                },
+                {
+                    "number": 6,
+                    "probability": 0.19856128911274418,
+                    "omission": 3,
+                    "count_20": 3
+                },
+                {
+                    "number": 11,
+                    "probability": 0.19856128911274418,
+                    "omission": 3,
                     "count_20": 4
+                },
+                {
+                    "number": 20,
+                    "probability": 0.19856128911274418,
+                    "omission": 3,
+                    "count_20": 3
+                },
+                {
+                    "number": 38,
+                    "probability": 0.19856128911274418,
+                    "omission": 3,
+                    "count_20": 3
                 }
             ],
-            "special": 7,
+            "importance": {
+                "t_1": 0.11552996601284174,
+                "t_2": 0.12631621071568727,
+                "t_3": 0.15466588881990606,
+                "t_4": 0.12418119430833256,
+                "t_5": 0.13048999879292347,
+                "freq": 0.348816741350309
+            },
+            "special": 6,
             "style": "super_lotto"
         },
         "daily_539": {
             "name": "今彩539",
             "numbers": [
                 {
-                    "number": 6,
-                    "probability": 0.178152971844955,
-                    "omission": 0,
+                    "number": 18,
+                    "probability": 0.21688520546840143,
+                    "omission": 1,
+                    "count_20": 4
+                },
+                {
+                    "number": 17,
+                    "probability": 0.20046140319642952,
+                    "omission": 2,
+                    "count_20": 4
+                },
+                {
+                    "number": 9,
+                    "probability": 0.17495204419298363,
+                    "omission": 1,
+                    "count_20": 4
+                },
+                {
+                    "number": 14,
+                    "probability": 0.17495204419298363,
+                    "omission": 1,
+                    "count_20": 2
+                },
+                {
+                    "number": 31,
+                    "probability": 0.17495204419298363,
+                    "omission": 1,
                     "count_20": 5
-                },
-                {
-                    "number": 28,
-                    "probability": 0.178152971844955,
-                    "omission": 0,
-                    "count_20": 6
-                },
-                {
-                    "number": 32,
-                    "probability": 0.17487540089727438,
-                    "omission": 3,
-                    "count_20": 3
-                },
-                {
-                    "number": 34,
-                    "probability": 0.17487540089727438,
-                    "omission": 3,
-                    "count_20": 1
-                },
-                {
-                    "number": 35,
-                    "probability": 0.17487540089727438,
-                    "omission": 3,
-                    "count_20": 1
                 }
             ],
+            "importance": {
+                "t_1": 0.12091460537229562,
+                "t_2": 0.18303620366200718,
+                "t_3": 0.10961099830476786,
+                "t_4": 0.16477348911058962,
+                "t_5": 0.1298108805529125,
+                "freq": 0.2918538229974272
+            },
             "special": null,
             "style": "daily_539"
         },
@@ -128,24 +152,32 @@
             "name": "3星彩",
             "numbers": [
                 {
-                    "number": 2,
-                    "probability": 0.18376393733462132,
-                    "omission": 1,
-                    "count_20": 1
-                },
-                {
-                    "number": 9,
-                    "probability": 0.32529348288801196,
-                    "omission": 12,
+                    "number": 4,
+                    "probability": 0.2584424732863008,
+                    "omission": 11,
                     "count_20": 4
                 },
                 {
-                    "number": 8,
-                    "probability": 0.35348118544110296,
-                    "omission": 4,
-                    "count_20": 2
+                    "number": 3,
+                    "probability": 0.23732134327006688,
+                    "omission": 1,
+                    "count_20": 5
+                },
+                {
+                    "number": 6,
+                    "probability": 0.28551590589116227,
+                    "omission": 10,
+                    "count_20": 1
                 }
             ],
+            "importance": {
+                "t_1": 0.15,
+                "t_2": 0.15,
+                "t_3": 0.15,
+                "t_4": 0.15,
+                "t_5": 0.15,
+                "freq": 0.25
+            },
             "special": null,
             "style": "stars"
         },
@@ -153,30 +185,38 @@
             "name": "4星彩",
             "numbers": [
                 {
-                    "number": 5,
-                    "probability": 0.4027664869920161,
-                    "omission": 10,
-                    "count_20": 5
+                    "number": 7,
+                    "probability": 0.2316204469485137,
+                    "omission": 5,
+                    "count_20": 3
                 },
                 {
-                    "number": 2,
-                    "probability": 0.38564296823085775,
-                    "omission": 14,
-                    "count_20": 4
+                    "number": 5,
+                    "probability": 0.4279075965856719,
+                    "omission": 6,
+                    "count_20": 2
+                },
+                {
+                    "number": 5,
+                    "probability": 0.34337180944050366,
+                    "omission": 12,
+                    "count_20": 1
                 },
                 {
                     "number": 9,
-                    "probability": 0.399576115238102,
-                    "omission": 1,
-                    "count_20": 5
-                },
-                {
-                    "number": 6,
-                    "probability": 0.35211473360557766,
-                    "omission": 1,
-                    "count_20": 2
+                    "probability": 0.3126721743544677,
+                    "omission": 11,
+                    "count_20": 0
                 }
             ],
+            "importance": {
+                "t_1": 0.15,
+                "t_2": 0.15,
+                "t_3": 0.15,
+                "t_4": 0.15,
+                "t_5": 0.15,
+                "freq": 0.25
+            },
             "special": null,
             "style": "stars"
         }
