@@ -28,7 +28,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install requests beautifulsoup4
+        pip install requests beautifulsoup4 numpy scikit-learn
         # 如果未來有用 scikit-learn 或 pandas，在這裡加上去
 
     # 4. 執行腳本，產生全新的 data.json
