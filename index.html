@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 彩券模擬預測器</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; text-align: center; }
+        .ball { display: inline-block; width: 40px; height: 40px; background: #e74c3c; color: white; border-radius: 50%; line-height: 40px; margin: 5px; font-weight: bold; }
+        .special { background: #f1c40f; color: #2c3e50; }
+        .info { color: #7f8c8d; font-size: 0.9em; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <h2>🤖 AI 模型下一期大樂透預測</h2>
+    <div id="loading">數據載入中...</div>
+    
+    <div id="prediction-box" style="display:none;">
+        <h3>推薦投注號碼：</h3>
+        <div id="numbers-container"></div>
+        <p>最後更新時間: <span id="update-time"></span></p>
+    </div>
+
+    <script>
+        // 讀取同目錄下的靜態 JSON 檔案
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('prediction-box').style.display = 'block';
+                document.getElementById('update-time').innerText = data.last_updated;
+
+                const container = document.getElementById('numbers-container');
+                
+                // 渲染普通號
+                data.prediction.numbers.forEach(num => {
+                    const el = document.createElement('span');
+                    el.className = 'ball';
+                    el.innerText = num;
+                    container.appendChild(el);
+                });
+
+                // 渲染特別號
+                const spEl = document.createElement('span');
+                spEl.className = 'ball special';
+                spEl.innerText = data.prediction.special;
+                container.appendChild(spEl);
+            })
+            .catch(err => {
+                document.getElementById('loading').innerText = '無法載入最新數據。';
+                console.error(err);
+            });
+    </script>
+</body>
+</html>

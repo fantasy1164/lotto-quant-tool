@@ -1,0 +1,46 @@
+name: Daily Lottery Scraper and Predictor
+
+on:
+  schedule:
+    # 國際標準時間 (UTC) 13:30 等於 台北時間 (UTC+8) 21:30 (開獎後數據通常已更新)
+    - cron: '30 13 * * *'
+  workflow_dispatch: # 允許你隨時手動點擊按鈕觸發執行
+
+permissions:
+  contents: write # 賦予 Actions 寫入並提交檔案回倉庫的權限
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. 複製倉庫程式碼到虛擬機
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # 2. 設定 Python 環境
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    # 3. 安裝爬蟲與機器學習所需的套件
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests beautifulsoup4
+        # 如果未來有用 scikit-learn 或 pandas，在這裡加上去
+
+    # 4. 執行腳本，產生全新的 data.json
+    - name: Run script
+      run: python update_data.py
+
+    # 5. 將更新後的 data.json 提交並推回 GitHub 倉庫
+    - name: Commit and Push changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add data.json
+        # 檢查是否有檔案變更，避免沒有新資料時報錯
+        git diff-index --quiet HEAD || git commit -m "Automated daily update: $(date)"
+        git push
