@@ -6,14 +6,15 @@
     <title>AI 電腦型彩券預測儀表板</title>
     <style>
         :root {
-            --bg-color: #f4f6f9;
+            --bg-color: #f6f8fa;
             --card-bg: #ffffff;
-            --text-main: #2c3e50;
-            --text-muted: #7f8c8d;
-            --primary-red: #e74c3c;
-            --special-yellow: #f1c40f;
-            --special-green: #2ecc71;
-            --star-blue: #34495e;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --primary-red: #ef4444;
+            --special-yellow: #f59e0b;
+            --special-green: #10b981;
+            --star-blue: #475569;
+            --border-color: #e2e8f0;
         }
 
         body {
@@ -26,207 +27,306 @@
 
         header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
         }
 
         header h1 {
-            margin: 0 0 10px 0;
-            font-size: 2.2rem;
+            margin: 0 0 12px 0;
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
         }
 
         header p {
             color: var(--text-muted);
             margin: 0;
+            font-size: 1.05rem;
         }
 
         #loading {
             text-align: center;
             font-size: 1.2rem;
             color: var(--text-muted);
-            margin-top: 50px;
+            margin-top: 60px;
+            font-weight: 500;
         }
 
-        /* 核心 Grid 網格佈局 */
+        /* 全螢幕響應式網格 */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            max-width: 1200px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        /* 卡片樣式 */
+        /* 數據卡片設計 */
         .card {
             background: var(--card-bg);
-            border-radius: 16px;
-            padding: 25px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            transition: transform 0.2s, box-shadow 0.2s;
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border-color);
+            transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.25s;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.08);
+            transform: translateY(-6px);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.07);
         }
 
         .card h3 {
             margin: 0 0 20px 0;
-            font-size: 1.4rem;
-            border-bottom: 2px solid #edf2f7;
-            padding-bottom: 10px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .card h3::after {
-            content: "AI 推薦";
+            content: "ML 演算中";
             font-size: 0.75rem;
-            background: #e0f2fe;
-            color: #0369a1;
-            padding: 4px 8px;
+            background: #f0fdf4;
+            color: #166534;
+            padding: 4px 10px;
             border-radius: 6px;
+            font-weight: 600;
         }
 
-        .numbers-display {
+        .details-box {
             display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            align-items: center;
-            min-height: 60px;
-            margin-bottom: 15px;
+            flex-direction: column;
+            gap: 14px;
         }
 
-        /* 球體基本樣式 */
+        /* 演算數據單列排版 */
+        .prediction-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f8fafc;
+        }
+
+        .ball-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 55%;
+        }
+
+        /* 球體樣式 */
         .ball {
             display: inline-block;
-            width: 42px;
-            height: 42px;
+            width: 38px;
+            height: 38px;
             background: var(--primary-red);
             color: white;
             border-radius: 50%;
-            line-height: 42px;
+            line-height: 38px;
             text-align: center;
-            font-weight: bold;
-            font-size: 1.05rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+            font-weight: 700;
+            font-size: 1rem;
+            box-shadow: 0 4px 6px rgba(239, 68, 68, 0.15);
+            flex-shrink: 0;
         }
 
-        /* 大樂透特別號 (黃球) */
-        .ball.lotto-special {
-            background: var(--special-yellow);
-            color: #2c3e50;
-        }
-
-        /* 威力彩第二區 (綠球) */
-        .ball.super-special {
-            background: var(--special-green);
-        }
-
-        /* 3/4星彩 (方塊) */
-        .star-box {
-            display: inline-block;
-            width: 42px;
-            height: 42px;
+        /* 3/4星彩數字方塊 */
+        .ball.star {
             background: var(--star-blue);
-            color: white;
             border-radius: 8px;
-            line-height: 42px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.15rem;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 6px rgba(71, 85, 105, 0.15);
         }
 
-        /* 提示分隔線（用於特別號前） */
-        .plus-sign {
-            font-size: 1.2rem;
-            font-weight: bold;
+        .omission-badge {
+            font-size: 0.8rem;
             color: var(--text-muted);
-            margin: 0 2px;
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
         }
+
+        /* 特徵冷熱標籤 */
+        .status-badge {
+            font-size: 0.72rem;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+        .badge-hot { background: #fee2e2; color: #ef4444; }
+        .badge-cold { background: #e0f2fe; color: #0284c7; }
+
+        /* 機率進度條 */
+        .prob-meta {
+            width: 40%;
+            text-align: right;
+        }
+
+        .prob-percent {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-family: monospace;
+        }
+
+        .progress-container {
+            background: #e2e8f0;
+            height: 6px;
+            border-radius: 3px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, #3b82f6, #10b981);
+            height: 100%;
+            border-radius: 3px;
+            width: 0%;
+            transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* 特別號專用面板 */
+        .special-panel {
+            margin-top: 18px;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px dashed var(--border-color);
+        }
+
+        .special-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .special-ball {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            color: white;
+            border-radius: 50%;
+            line-height: 40px;
+            text-align: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .special-ball.lotto { background: var(--special-yellow); color: #1e293b; }
+        .special-ball.super { background: var(--special-green); }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>🤖 AI 電腦型彩券模擬預測儀表板</h1>
-        <p>數據最後更新時間: <span id="update-time">---</span></p>
+        <h1>🤖 AI 電腦型彩券預測儀表板</h1>
+        <p>數據更新排程：每日自動運行 • <span id="update-time">載入中...</span></p>
     </header>
 
-    <div id="loading">正在載入模型預測數據...</div>
+    <div id="loading">正在讀取真實歷史開獎數據與訓練模型結果...</div>
     
     <div class="grid-container" id="lottery-grid"></div>
 
     <script>
-        // 讀取由 GitHub Actions 天天更新的 data.json
+        // 非同步載入 Actions 生成的資料
         fetch('data.json')
             .then(response => response.json())
             .then(data => {
                 document.getElementById('loading').style.display = 'none';
-                document.getElementById('update-time').innerText = data.last_updated;
+                document.getElementById('update-time').innerText = `最後更新: ${data.last_updated}`;
                 
-                const gridContainer = document.getElementById('lottery-grid');
-                gridContainer.innerHTML = ''; // 清空容器
+                const grid = document.getElementById('lottery-grid');
+                grid.innerHTML = ''; 
 
-                // 迭代所有彩券產品，直接生成卡片
+                // 遍歷所有商品
                 Object.keys(data.predictions).forEach(key => {
-                    const pred = data.predictions[key];
+                    const product = data.predictions[key];
                     
-                    // 1. 建立卡片外殼
                     const card = document.createElement('div');
                     card.className = 'card';
 
-                    // 2. 建立標題
+                    // 1. 卡片標題
                     const title = document.createElement('h3');
-                    title.innerText = pred.name;
+                    title.innerText = product.name;
                     card.appendChild(title);
 
-                    // 3. 建立號碼容器
-                    const numContainer = document.createElement('div');
-                    numContainer.className = 'numbers-display';
+                    // 2. 演算詳情容器
+                    const detailsBox = document.createElement('div');
+                    detailsBox.className = 'details-box';
 
-                    // 4. 渲染普通號碼
-                    pred.numbers.forEach(num => {
-                        const el = document.createElement('span');
-                        if (pred.style === 'stars') {
-                            el.className = 'star-box';
-                            el.innerText = num; // 3/4星彩不補零
-                        } else {
-                            el.className = 'ball';
-                            el.innerText = String(num).padStart(2, '0');
+                    product.numbers.forEach(item => {
+                        const row = document.createElement('div');
+                        row.className = 'prediction-row';
+
+                        // 計算冷熱標籤
+                        let tagHtml = '';
+                        if (item.count_20 >= 4) {
+                            tagHtml = '<span class="status-badge badge-hot">🔥熱</span>';
+                        } else if (item.count_20 <= 1) {
+                            tagHtml = '<span class="status-badge badge-cold">❄️冷</span>';
                         }
-                        numContainer.appendChild(el);
+
+                        // 判斷是否為三星/四星彩的方塊樣式
+                        const isStar = product.style === 'stars';
+                        const ballText = isStar ? item.number : String(item.number).padStart(2, '0');
+                        const ballClass = isStar ? 'ball star' : 'ball';
+
+                        row.innerHTML = `
+                            <div class="ball-meta">
+                                <span class="${ballClass}">${ballText}</span>
+                                ${tagHtml}
+                                <span class="omission-badge">漏 ${item.omission} 期</span>
+                            </div>
+                            <div class="prob-meta">
+                                <span class="prob-percent">${(item.probability * 100).toFixed(1)}%</span>
+                                <div class="progress-container">
+                                    <div class="progress-bar" data-width="${item.probability * 100}"></div>
+                                </div>
+                            </div>
+                        `;
+                        detailsBox.appendChild(row);
                     });
+                    card.appendChild(detailsBox);
 
-                    // 5. 處理特別號 / 第二區號碼
-                    if (pred.special !== null) {
-                        // 加入一個 "+" 號視覺分隔
-                        const plus = document.createElement('span');
-                        plus.className = 'plus-sign';
-                        plus.innerText = "+";
-                        numContainer.appendChild(plus);
+                    // 3. 渲染特別號區塊（如果該彩券有特別號）
+                    if (product.special !== null) {
+                        const specialPanel = document.createElement('div');
+                        specialPanel.className = 'special-panel';
+                        
+                        const spTitle = document.createElement('span');
+                        spTitle.className = 'special-title';
+                        spTitle.innerText = product.style === 'super_lotto' ? 'AI 推薦第二區號碼' : 'AI 推薦特別號';
+                        
+                        const spBall = document.createElement('span');
+                        spBall.className = `special-ball ${product.style === 'super_lotto' ? 'super' : 'lotto'}`;
+                        spBall.innerText = String(product.special).padStart(2, '0');
 
-                        const spEl = document.createElement('span');
-                        if (pred.style === 'super_lotto') {
-                            spEl.className = 'ball super-special';
-                        } else if (pred.style === 'lotto') {
-                            spEl.className = 'ball lotto-special';
-                        }
-                        spEl.innerText = String(pred.special).padStart(2, '0');
-                        numContainer.appendChild(spEl);
+                        specialPanel.appendChild(spTitle);
+                        specialPanel.appendChild(spBall);
+                        card.appendChild(specialPanel);
                     }
 
-                    card.appendChild(numContainer);
-                    gridContainer.appendChild(card);
+                    grid.appendChild(card);
                 });
+
+                // 動態觸發進度條動畫
+                setTimeout(() => {
+                    document.querySelectorAll('.progress-bar').forEach(bar => {
+                        const targetWidth = bar.getAttribute('data-width');
+                        bar.style.width = `${targetWidth}%`;
+                    });
+                }, 100);
             })
             .catch(err => {
-                document.getElementById('loading').innerText = '無法載入最新數據，請檢查 data.json 是否存在。';
+                document.getElementById('loading').innerText = '數據讀取失敗，請確認 data.json 是否順利生成。';
                 console.error(err);
             });
     </script>
