@@ -5,6 +5,7 @@ import numpy as np
 import requests
 from sklearn.ensemble import RandomForestClassifier
 
+# 台灣彩券官方新版 API 基礎路徑
 API_BASE_URL = "https://api.taiwanlottery.com.tw/api/v1/lottery"
 
 
@@ -40,6 +41,9 @@ def calculate_next_draw_date(lottery_style):
 
 
 def fetch_real_history(lottery_type, size=100):
+    """
+    從台彩官方 API 爬取真實歷史開獎數據
+    """
     url = f"{API_BASE_URL}/{lottery_type}/history"
     params = {"size": size}
     headers = {
@@ -87,6 +91,9 @@ def fetch_real_history(lottery_type, size=100):
 
 
 def generate_fallback_history(max_number, pick_count, size=100):
+    """
+    防禦機制：當海外 IP 被台彩阻擋時，自動生成高仿真歷史數據供 ML 模型訓練
+    """
     fallback_history = []
     for i in range(size):
         nums = sorted(list(np.random.choice(range(1, max_number + 1), pick_count, replace=False)))
@@ -123,9 +130,11 @@ def ml_predict_with_details(history_numbers, max_number, pick_count):
     lookback = 5
     X, y, matrix = create_features_and_labels(history_numbers, max_number, lookback)
 
+    # 1. 訓練隨機森林模型
     model = RandomForestClassifier(n_estimators=100, random_state=42)
     model.fit(X, y)
 
+    # 2. 擷取特徵重要性 (Feature Importance)
     importances = model.feature_importances_
     feature_importance_dict = {
         "t_1": float(importances[0]),
@@ -136,6 +145,7 @@ def ml_predict_with_details(history_numbers, max_number, pick_count):
         "freq": float(importances[5])
     }
 
+    # 3. 預測最新一期
     next_features = []
     for num in range(1, max_number + 1):
         feature = matrix[0:lookback, num]
@@ -147,12 +157,14 @@ def ml_predict_with_details(history_numbers, max_number, pick_count):
 
     detailed_results = []
     for num in range(1, max_number + 1):
+        # 計算遺漏期數
         omission = 0
         for i in range(len(history_numbers)):
             if num in history_numbers[i]:
                 break
             omission += 1
 
+        # 計算近 20 期的開出頻率
         recent_20 = history_numbers[:20]
         appearance_count = sum(1 for draw in recent_20 if num in draw)
 
@@ -185,7 +197,10 @@ def generate_stars_data(digit_count):
 
 def main():
     predictions = {}
-    print(f"[+] 開始執行台彩機器學習推演程序 - {datetime.now()}")
+    
+    # 建立台北時區
+    tz_taipei = timezone(timedelta(hours=8))
+    print(f"[+] 開始執行台彩機器學習推演程序 - {datetime.now(tz_taipei)}")
 
     # ====== 1. 大樂透 (Lotto 6/49) ======
     print("[->] 正在獲取大樂透數據...")
@@ -267,8 +282,9 @@ def main():
         "style": "stars",
     }
 
+    # ====== 打包儲存至 JSON (時區修正為台北時間) ======
     output_data = {
-        "last_updated": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "last_updated": datetime.now(tz_taipei).strftime("%Y-%m-%d %H:%M:%S"),
         "predictions": predictions,
     }
 
