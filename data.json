@@ -1,56 +1,56 @@
 {
-    "last_updated": "2026-09-06 00:12:21",
+    "last_updated": "2026-09-07 00:24:19",
     "predictions": {
         "lotto": {
             "name": "大樂透",
             "next_draw": "下期開獎 2026/09/08(二)",
             "numbers": [
                 {
-                    "number": 10,
-                    "probability": 0.17152186702186703,
+                    "number": 1,
+                    "probability": 0.15121316551584257,
+                    "omission": 2,
+                    "count_20": 6
+                },
+                {
+                    "number": 48,
+                    "probability": 0.14861989727213695,
                     "omission": 2,
                     "count_20": 4
                 },
                 {
-                    "number": 40,
-                    "probability": 0.15776836480919307,
-                    "omission": 0,
-                    "count_20": 4
+                    "number": 23,
+                    "probability": 0.1372643906848042,
+                    "omission": 2,
+                    "count_20": 1
                 },
                 {
-                    "number": 42,
-                    "probability": 0.15776836480919307,
-                    "omission": 0,
-                    "count_20": 4
-                },
-                {
-                    "number": 20,
-                    "probability": 0.1264043481609369,
-                    "omission": 1,
-                    "count_20": 4
-                },
-                {
-                    "number": 22,
-                    "probability": 0.1264043481609369,
-                    "omission": 1,
+                    "number": 32,
+                    "probability": 0.1372643906848042,
+                    "omission": 2,
                     "count_20": 2
                 },
                 {
-                    "number": 31,
-                    "probability": 0.1264043481609369,
-                    "omission": 1,
-                    "count_20": 1
+                    "number": 42,
+                    "probability": 0.1372643906848042,
+                    "omission": 2,
+                    "count_20": 3
+                },
+                {
+                    "number": 16,
+                    "probability": 0.1356349171456412,
+                    "omission": 0,
+                    "count_20": 3
                 }
             ],
             "importance": {
-                "t_1": 0.1310945261532336,
-                "t_2": 0.16728242389533524,
-                "t_3": 0.13496720104438334,
-                "t_4": 0.17035999118397868,
-                "t_5": 0.13181735844038067,
-                "freq": 0.26447849928268835
+                "t_1": 0.11023908047158618,
+                "t_2": 0.13996864014604798,
+                "t_3": 0.14989286028969867,
+                "t_4": 0.17224901496200776,
+                "t_5": 0.14038905872140087,
+                "freq": 0.2872613454092585
             },
-            "special": 17,
+            "special": 16,
             "style": "lotto"
         },
         "super_lotto": {
@@ -58,51 +58,51 @@
             "next_draw": "下期開獎 2026/09/07(一)",
             "numbers": [
                 {
-                    "number": 8,
-                    "probability": 0.26327218614718595,
+                    "number": 21,
+                    "probability": 0.18484407075923762,
+                    "omission": 0,
+                    "count_20": 5
+                },
+                {
+                    "number": 5,
+                    "probability": 0.1804267886121398,
+                    "omission": 0,
+                    "count_20": 7
+                },
+                {
+                    "number": 10,
+                    "probability": 0.1804267886121398,
                     "omission": 0,
                     "count_20": 3
                 },
                 {
-                    "number": 5,
-                    "probability": 0.21256348171572426,
-                    "omission": 3,
-                    "count_20": 5
+                    "number": 13,
+                    "probability": 0.1804267886121398,
+                    "omission": 0,
+                    "count_20": 4
                 },
                 {
-                    "number": 13,
-                    "probability": 0.20062963361307384,
-                    "omission": 3,
+                    "number": 18,
+                    "probability": 0.16936334077699491,
+                    "omission": 1,
                     "count_20": 6
                 },
                 {
-                    "number": 23,
-                    "probability": 0.19691901187110303,
-                    "omission": 1,
-                    "count_20": 4
-                },
-                {
-                    "number": 21,
-                    "probability": 0.17863470170855356,
-                    "omission": 4,
-                    "count_20": 4
-                },
-                {
-                    "number": 33,
-                    "probability": 0.17863470170855356,
-                    "omission": 4,
-                    "count_20": 4
+                    "number": 2,
+                    "probability": 0.16904137376095033,
+                    "omission": 13,
+                    "count_20": 2
                 }
             ],
             "importance": {
-                "t_1": 0.14325643979929187,
-                "t_2": 0.1284743780573679,
-                "t_3": 0.12261976412830833,
-                "t_4": 0.15725955618760348,
-                "t_5": 0.12277966835387524,
-                "freq": 0.32561019347355313
+                "t_1": 0.11973109333588343,
+                "t_2": 0.1580231946171899,
+                "t_3": 0.13372766016431292,
+                "t_4": 0.14714669853058776,
+                "t_5": 0.1196328256809091,
+                "freq": 0.32173852767111705
             },
-            "special": 1,
+            "special": 5,
             "style": "super_lotto"
         },
         "daily_539": {
@@ -110,43 +110,43 @@
             "next_draw": "下期開獎 2026/09/07(一)",
             "numbers": [
                 {
-                    "number": 23,
-                    "probability": 0.14038492462835955,
-                    "omission": 4,
-                    "count_20": 2
+                    "number": 21,
+                    "probability": 0.14107161910948682,
+                    "omission": 2,
+                    "count_20": 3
                 },
                 {
-                    "number": 29,
-                    "probability": 0.14038492462835955,
-                    "omission": 4,
-                    "count_20": 5
+                    "number": 35,
+                    "probability": 0.14107161910948682,
+                    "omission": 2,
+                    "count_20": 4
                 },
                 {
-                    "number": 31,
-                    "probability": 0.14038492462835955,
-                    "omission": 4,
-                    "count_20": 2
-                },
-                {
-                    "number": 1,
-                    "probability": 0.1312879154024071,
-                    "omission": 46,
-                    "count_20": 0
-                },
-                {
-                    "number": 3,
-                    "probability": 0.1312879154024071,
-                    "omission": 10,
+                    "number": 37,
+                    "probability": 0.14107161910948682,
+                    "omission": 2,
                     "count_20": 1
+                },
+                {
+                    "number": 39,
+                    "probability": 0.14107161910948682,
+                    "omission": 2,
+                    "count_20": 3
+                },
+                {
+                    "number": 2,
+                    "probability": 0.13608614291287843,
+                    "omission": 10,
+                    "count_20": 2
                 }
             ],
             "importance": {
-                "t_1": 0.1524025943116574,
-                "t_2": 0.1388728359039711,
-                "t_3": 0.14579390146038934,
-                "t_4": 0.13058663645082444,
-                "t_5": 0.10503850485975538,
-                "freq": 0.3273055270134025
+                "t_1": 0.13074500071742495,
+                "t_2": 0.1292475596704729,
+                "t_3": 0.149936303812161,
+                "t_4": 0.13710507431463065,
+                "t_5": 0.15087916380549524,
+                "freq": 0.30208689767981534
             },
             "special": null,
             "style": "daily_539"
@@ -156,22 +156,22 @@
             "next_draw": "下期開獎 2026/09/07(一)",
             "numbers": [
                 {
-                    "number": 1,
-                    "probability": 0.17656893433084703,
+                    "number": 0,
+                    "probability": 0.17354976317880969,
+                    "omission": 11,
+                    "count_20": 3
+                },
+                {
+                    "number": 2,
+                    "probability": 0.35095216740100227,
                     "omission": 12,
-                    "count_20": 0
+                    "count_20": 2
                 },
                 {
-                    "number": 7,
-                    "probability": 0.2505115158996858,
-                    "omission": 0,
-                    "count_20": 4
-                },
-                {
-                    "number": 3,
-                    "probability": 0.40479466958259436,
-                    "omission": 8,
-                    "count_20": 0
+                    "number": 4,
+                    "probability": 0.3329814721536783,
+                    "omission": 11,
+                    "count_20": 5
                 }
             ],
             "importance": {
@@ -190,28 +190,28 @@
             "next_draw": "下期開獎 2026/09/07(一)",
             "numbers": [
                 {
-                    "number": 1,
-                    "probability": 0.38755089521747016,
+                    "number": 0,
+                    "probability": 0.16857842825098673,
                     "omission": 12,
-                    "count_20": 4
+                    "count_20": 0
                 },
                 {
                     "number": 6,
-                    "probability": 0.1593189418471572,
+                    "probability": 0.43877049040414284,
                     "omission": 5,
-                    "count_20": 1
-                },
-                {
-                    "number": 4,
-                    "probability": 0.2585342837632998,
-                    "omission": 1,
                     "count_20": 3
                 },
                 {
-                    "number": 2,
-                    "probability": 0.19158195656013402,
+                    "number": 5,
+                    "probability": 0.4042760887214111,
                     "omission": 4,
-                    "count_20": 0
+                    "count_20": 2
+                },
+                {
+                    "number": 4,
+                    "probability": 0.41091092249916883,
+                    "omission": 13,
+                    "count_20": 1
                 }
             ],
             "importance": {
