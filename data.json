@@ -1,56 +1,56 @@
 {
-    "last_updated": "2026-10-24 01:56:48",
+    "last_updated": "2026-10-25 00:52:01",
     "predictions": {
         "lotto": {
             "name": "大樂透",
             "next_draw": "下期開獎 2026/10/27(二)",
             "numbers": [
                 {
-                    "number": 1,
-                    "probability": 0.2622637397144452,
-                    "omission": 0,
+                    "number": 3,
+                    "probability": 0.15504926532925514,
+                    "omission": 3,
+                    "count_20": 3
+                },
+                {
+                    "number": 13,
+                    "probability": 0.15504926532925514,
+                    "omission": 3,
+                    "count_20": 1
+                },
+                {
+                    "number": 20,
+                    "probability": 0.15504926532925514,
+                    "omission": 3,
+                    "count_20": 2
+                },
+                {
+                    "number": 21,
+                    "probability": 0.15504926532925514,
+                    "omission": 3,
                     "count_20": 3
                 },
                 {
                     "number": 31,
-                    "probability": 0.2622637397144452,
-                    "omission": 0,
-                    "count_20": 3
+                    "probability": 0.15504926532925514,
+                    "omission": 3,
+                    "count_20": 1
                 },
                 {
-                    "number": 5,
-                    "probability": 0.22152023804626378,
-                    "omission": 0,
-                    "count_20": 3
-                },
-                {
-                    "number": 12,
-                    "probability": 0.15419954194596572,
-                    "omission": 0,
-                    "count_20": 3
-                },
-                {
-                    "number": 25,
-                    "probability": 0.15419954194596572,
-                    "omission": 0,
-                    "count_20": 2
-                },
-                {
-                    "number": 33,
-                    "probability": 0.15419954194596572,
-                    "omission": 0,
+                    "number": 7,
+                    "probability": 0.14498596381417916,
+                    "omission": 4,
                     "count_20": 4
                 }
             ],
             "importance": {
-                "t_1": 0.19759202079383195,
-                "t_2": 0.1388354806034439,
-                "t_3": 0.10953476014578876,
-                "t_4": 0.12514757824171968,
-                "t_5": 0.14036896811095437,
-                "freq": 0.28852119210426147
+                "t_1": 0.10232787598886581,
+                "t_2": 0.13397239235404845,
+                "t_3": 0.1330596712211749,
+                "t_4": 0.12199667335988208,
+                "t_5": 0.1673551137015175,
+                "freq": 0.3412882733745113
             },
-            "special": 29,
+            "special": 34,
             "style": "lotto"
         },
         "super_lotto": {
@@ -58,120 +58,120 @@
             "next_draw": "下期開獎 2026/10/26(一)",
             "numbers": [
                 {
-                    "number": 2,
-                    "probability": 0.19489824119505503,
-                    "omission": 3,
-                    "count_20": 1
+                    "number": 31,
+                    "probability": 0.2774393865937983,
+                    "omission": 2,
+                    "count_20": 6
                 },
                 {
-                    "number": 12,
-                    "probability": 0.19489824119505503,
-                    "omission": 3,
+                    "number": 26,
+                    "probability": 0.2609249820167806,
+                    "omission": 1,
+                    "count_20": 5
+                },
+                {
+                    "number": 25,
+                    "probability": 0.23384654897331664,
+                    "omission": 1,
+                    "count_20": 5
+                },
+                {
+                    "number": 10,
+                    "probability": 0.21902894549463478,
+                    "omission": 2,
+                    "count_20": 6
+                },
+                {
+                    "number": 9,
+                    "probability": 0.19867088564398602,
+                    "omission": 0,
                     "count_20": 3
                 },
                 {
+                    "number": 21,
+                    "probability": 0.17456266601913586,
+                    "omission": 1,
+                    "count_20": 1
+                }
+            ],
+            "importance": {
+                "t_1": 0.12580804654686026,
+                "t_2": 0.17658455686249902,
+                "t_3": 0.11654770370818178,
+                "t_4": 0.12762716034982818,
+                "t_5": 0.15066647615102421,
+                "freq": 0.3027660563816066
+            },
+            "special": 6,
+            "style": "super_lotto"
+        },
+        "daily_539": {
+            "name": "今彩539",
+            "next_draw": "下期開獎 2026/10/26(一)",
+            "numbers": [
+                {
+                    "number": 5,
+                    "probability": 0.16418552615914894,
+                    "omission": 4,
+                    "count_20": 4
+                },
+                {
                     "number": 15,
-                    "probability": 0.19489824119505503,
-                    "omission": 3,
+                    "probability": 0.16418552615914894,
+                    "omission": 4,
+                    "count_20": 2
+                },
+                {
+                    "number": 18,
+                    "probability": 0.16418552615914894,
+                    "omission": 4,
                     "count_20": 2
                 },
                 {
                     "number": 25,
-                    "probability": 0.19489824119505503,
-                    "omission": 3,
-                    "count_20": 4
+                    "probability": 0.16418552615914894,
+                    "omission": 4,
+                    "count_20": 3
                 },
                 {
-                    "number": 38,
-                    "probability": 0.19489824119505503,
-                    "omission": 3,
-                    "count_20": 4
-                },
-                {
-                    "number": 24,
-                    "probability": 0.18015809285972303,
+                    "number": 6,
+                    "probability": 0.1499794951747702,
                     "omission": 1,
                     "count_20": 2
                 }
             ],
             "importance": {
-                "t_1": 0.1231143612311715,
-                "t_2": 0.13167975916304983,
-                "t_3": 0.14109800768056716,
-                "t_4": 0.1407017267292946,
-                "t_5": 0.1609475563686475,
-                "freq": 0.3024585888272695
-            },
-            "special": 1,
-            "style": "super_lotto"
-        },
-        "daily_539": {
-            "name": "今彩539",
-            "next_draw": "下期開獎 2026/10/24(六)",
-            "numbers": [
-                {
-                    "number": 6,
-                    "probability": 0.149151739746895,
-                    "omission": 4,
-                    "count_20": 1
-                },
-                {
-                    "number": 17,
-                    "probability": 0.149151739746895,
-                    "omission": 4,
-                    "count_20": 4
-                },
-                {
-                    "number": 2,
-                    "probability": 0.14642955791764384,
-                    "omission": 0,
-                    "count_20": 4
-                },
-                {
-                    "number": 11,
-                    "probability": 0.14642955791764384,
-                    "omission": 0,
-                    "count_20": 6
-                },
-                {
-                    "number": 5,
-                    "probability": 0.14196864731234304,
-                    "omission": 3,
-                    "count_20": 2
-                }
-            ],
-            "importance": {
-                "t_1": 0.24557194054729592,
-                "t_2": 0.12212853341923482,
-                "t_3": 0.12717133206785775,
-                "t_4": 0.1191351094688696,
-                "t_5": 0.11488837588927818,
-                "freq": 0.2711047086074638
+                "t_1": 0.1374888624458638,
+                "t_2": 0.12320060213550214,
+                "t_3": 0.1439697830475449,
+                "t_4": 0.13989217673035265,
+                "t_5": 0.16686020906791132,
+                "freq": 0.2885883665728252
             },
             "special": null,
             "style": "daily_539"
         },
         "star_3": {
             "name": "3星彩",
-            "next_draw": "下期開獎 2026/10/24(六)",
+            "next_draw": "下期開獎 2026/10/26(一)",
             "numbers": [
                 {
-                    "number": 1,
-                    "probability": 0.24898983612443826,
-                    "omission": 0,
-                    "count_20": 4
+                    "number": 9,
+                    "probability": 0.3570335110104783,
+                    "omission": 6,
+                    "count_20": 3
                 },
                 {
-                    "number": 5,
-                    "probability": 0.24373066409174865,
+                    "number": 9,
+                    "probability": 0.3273220965128312,
                     "omission": 7,
-                    "count_20": 1
+                    "count_20": 2
                 },
                 {
-                    "number": 0,
-                    "probability": 0.4097117475333255,
-                    "omission": 4,
-                    "count_20": 0
+                    "number": 1,
+                    "probability": 0.40722505877169457,
+                    "omission": 13,
+                    "count_20": 5
                 }
             ],
             "importance": {
@@ -187,31 +187,31 @@
         },
         "star_4": {
             "name": "4星彩",
-            "next_draw": "下期開獎 2026/10/24(六)",
+            "next_draw": "下期開獎 2026/10/26(一)",
             "numbers": [
                 {
-                    "number": 6,
-                    "probability": 0.1623069369807932,
-                    "omission": 13,
-                    "count_20": 4
-                },
-                {
-                    "number": 9,
-                    "probability": 0.3589752459413995,
-                    "omission": 6,
+                    "number": 8,
+                    "probability": 0.32650310122281334,
+                    "omission": 7,
                     "count_20": 3
                 },
                 {
-                    "number": 2,
-                    "probability": 0.30487892853178433,
-                    "omission": 13,
-                    "count_20": 2
+                    "number": 0,
+                    "probability": 0.3684526865977016,
+                    "omission": 5,
+                    "count_20": 0
                 },
                 {
-                    "number": 5,
-                    "probability": 0.35605072392335596,
-                    "omission": 5,
+                    "number": 3,
+                    "probability": 0.31960875616711426,
+                    "omission": 4,
                     "count_20": 1
+                },
+                {
+                    "number": 6,
+                    "probability": 0.39641265274635484,
+                    "omission": 8,
+                    "count_20": 2
                 }
             ],
             "importance": {
